@@ -26,9 +26,9 @@ window.addEventListener('DOMContentLoaded', () => {
   'columnDivs' : document.querySelectorAll('.column-div'),
   'filterDiv' : document.getElementById('filterDiv'),
   'themeSwitch' : document.getElementById('theme-switch'),
-  'modalWindow' : document.getElementById('modal-window'),
-  'createNewTaskBtn' : document.getElementById(''),
-  'editTaskModal' : document.getElementById('edit-task-modal-window'),
+  'modalWindow' : document.querySelector('.modal-window'),
+  'createNewTaskBtn' : document.getElementById('add-new-task-btn'),
+  'editTaskModal' : document.querySelector('.edit-task-modal-window'),
   'sideBarDisplay' : document.getElementById('show-side-bar-btn')
   }
 
@@ -197,7 +197,8 @@ function styleActiveBoard(boardName) {
     const cancelAddTaskBtn = document.getElementById('cancel-add-task-btn');
     cancelAddTaskBtn.addEventListener('click', () => {
       toggleModal(false);
-      elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
+      elements.filterDiv.style.display = 'none';
+      document.getElementById('edit-task-form').reset() // Also hide the filter overlay
     });
 
 
@@ -215,7 +216,7 @@ function styleActiveBoard(boardName) {
 
 
     // Theme switch event listener
-    elements.themeSwitch.addEventListener('change', toggleTheme);
+    //elements.themeSwitch.addEventListener('change', toggleTheme);
 
     // Show Add New Task Modal event listener
     elements.createNewTaskBtn.addEventListener('click', () => {
@@ -232,7 +233,8 @@ function styleActiveBoard(boardName) {
   // Toggles tasks modal
   // Task: Fix bugs
   function toggleModal(show, modal = elements.modalWindow) {
-    modal.style.display = show ? 'block' : 'none'; 
+    console.log(`modal ${modal}`)
+    show ? modal.style.display='block' : modal.style.display='none'; 
   }
 
   /*************************************************************************************************************************************************
@@ -241,12 +243,19 @@ function styleActiveBoard(boardName) {
 
   function addTask(event) {
     event.preventDefault(); 
-
-  //Assign user input to the task object
     const task = {
-
+      
+      "title": document.getElementById('title-input').value,
+      "description": document.getElementById('desc-input').value,
+      "status": document.getElementById('select-status').value,
+      "board" : activeBoard
+      
     };
-    const newTask = createNewTask(task);
+    
+  //Assign user input to the task object
+
+    const newTask = helperFunc.createNewTask(task);
+    console.log(newTask)
     if (newTask) {
       addTaskToUI(newTask);
       toggleModal(false);
