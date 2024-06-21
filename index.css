@@ -27,10 +27,11 @@ body {
   min-height: 100vh;
   flex-direction: row;
   margin: 0;
-  /* border: 5px solid red; */
+  border: 5px solid red; 
   background-color: var(--secondary-color);
   box-sizing: border-box;
   width: 100%;
+  
 }
 
 #layout {
@@ -47,10 +48,10 @@ body {
 .side-bar {
   /*  */
   background-color: var(--primary-color);
-  /* border: 5px solid rgb(0, 0, 0); */
+   border: 5px solid rgb(0, 0, 0);
   border-right: 0.1px solid #979797;
   /* flex: 0.8; */
-  display: none;
+  /*display: none;*/
   flex-direction: column;
   gap: 50px;
   /* padding-left: 50px; */
@@ -68,6 +69,7 @@ body {
   color: var(--primary-font-color);
   gap: 18px;
   height: 200px;
+  border: 2px solid green;
 }
 
 #create-board-btn {
@@ -180,7 +182,7 @@ h4 {
   bottom: 45px;
   border-radius: 0 20px 20px 0;
   background-color: #219C90;
-  display: none;
+  /*display: none;*/
   cursor: pointer;
 }
 

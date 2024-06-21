@@ -17,3 +17,16 @@ function initializeData() {
   }
 }
 initializeData()
+
+const elements = {
+    'headerBoardName' : document.getElementById(''),
+    'columnDivs' : document.getElementById(''),
+    'filterDiv' : document.getElementById(''),
+    'themeSwitch' : document.getElementById(''),
+    'modalWindow' : document.getElementById(''),
+    'createNewTaskBtn' : document.getElementById(''),
+    'editTaskModal' : document.getElementById('')
+    
+    
+    
+    }

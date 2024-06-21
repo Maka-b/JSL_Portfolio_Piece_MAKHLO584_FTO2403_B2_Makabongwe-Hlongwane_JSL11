@@ -3,6 +3,7 @@
 // Simulate fetching tasks from localStorage
 export const getTasks = () => {
   const tasks = localStorage.getItem('tasks');
+  console.log(JSON.parse(tasks))
   return tasks ? JSON.parse(tasks) : [];
 };
 

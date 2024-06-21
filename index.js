@@ -16,30 +16,49 @@ function initializeData() {
     console.log('Data already exists in localStorage');
   }
 }
-initializeData()
+//initializeData()
 
 
 // TASK: Get elements from the DOM
 const elements = {
+'headerBoardName' : document.getElementById('header-board-name'),
+'columnDivs' : document.querySelectorAll('column-div'),
+'filterDiv' : document.getElementById('filterDiv'),
+'themeSwitch' : document.getElementById('theme-switch'),
+'modalWindow' : document.getElementById('modal-window'),
+'createNewTaskBtn' : document.getElementById(''),
+'editTaskModal' : document.getElementById('edit-task-modal-window'),
+'sideBarDisplay' : document.getElementById('show-side-bar-btn')
+
+
 
 }
-
+console.log(elements.columnDivs)
 let activeBoard = ""
 
 // Extracts unique board names from tasks
 // TASK: FIX BUGS
+//Set sidebar dispay to none if board is empty
+//show dislay and hide button
 function fetchAndDisplayBoardsAndTasks() {
-  const tasks = getTasks();
+ 
+  console.log(localStorage)
+  
+  const tasks = helperFunc.getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
+  console.log(`boards : ${boards}`)
   displayBoards(boards);
+  console.log(`boardsLenght: ${boards.length}`)
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
+    console.log(`active board ${localStorageBoard}`)
     activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
+    console.log(`active board ${activeBoard}`)
     elements.headerBoardName.textContent = activeBoard
     styleActiveBoard(activeBoard)
     refreshTasksUI();
   }
-}
+}fetchAndDisplayBoardsAndTasks()
 
 
 // Creates different boards in the DOM
@@ -47,6 +66,7 @@ function fetchAndDisplayBoardsAndTasks() {
 function displayBoards(boards) {
   const boardsContainer = document.getElementById("boards-nav-links-div");
   boardsContainer.innerHTML = ''; // Clears the container
+  //console.log(`boardsContainer: ${boardsContainer}`)
   boards.forEach(board => {
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
@@ -60,6 +80,7 @@ function displayBoards(boards) {
       styleActiveBoard(activeBoard)
     });
     boardsContainer.appendChild(boardElement);
+    console.log(`boardsContainer: ${boardsContainer.textContent}`)
   });
 
 }
@@ -67,11 +88,12 @@ function displayBoards(boards) {
 // Filters tasks corresponding to the board name and displays them on the DOM.
 // TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
-  const tasks = getTasks(); // Fetch tasks from a simulated local storage function
+  const tasks = helperFunc.getTasks(); // Fetch tasks from a simulated local storage function
+  console.log(`tasks ${tasks[1].status})`)
   const filteredTasks = tasks.filter(task => task.board = boardName);
-
+  console.log(`Ftasks ${filteredTasks[1].title})`)
   // Ensure the column titles are set outside of this function or correctly initialized before this function runs
-
+  console.log(`colDivs ${elements.columnDivs[1]}`)
   elements.columnDivs.forEach(column => {
     const status = column.getAttribute("data-status");
     // Reset column content while preserving the column title
@@ -107,15 +129,28 @@ function refreshTasksUI() {
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
 function styleActiveBoard(boardName) {
-  document.querySelectorAll('.board-btn').foreach(btn => { 
-    
+  const boardBtnEls = document.querySelectorAll('.board-btn')
+  console.log(boardBtnEls[1].textContent)
+  boardBtnEls[1].classList.add('active')
+for (let btn of boardBtnEls){
+  console.log(btn)
+  if(btn.textContent === boardName) {
+    btn.classList.add('active') 
+  }
+  else {
+    btn.classList.remove('active'); 
+  }
+}
+//forEach method not itterable for elements
+ /* boardBtnEls.foreach(btn => { 
+
     if(btn.textContent === boardName) {
-      btn.add('active') 
+      btn.classList.add('active') 
     }
     else {
-      btn.remove('active'); 
+      btn.classList.remove('active'); 
     }
-  });
+  })*/;
 }
 
 
