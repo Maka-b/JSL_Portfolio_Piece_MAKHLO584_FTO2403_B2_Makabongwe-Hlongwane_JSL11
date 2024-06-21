@@ -93,9 +93,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const tasks = helperFunc.getTasks(); // Fetch tasks from a simulated local storage function
     console.log(`tasks ${tasks[1].status})`)
     console.log(tasks.length)
-    const filteredTasks = tasks.filter(task => task.board= boardName);
-    console.log(filteredTasks.length)
-    checkName => {return boardName}
+    const filteredTasks = tasks.filter(task => task.board === boardName);
+    console.log(filteredTasks)
     console.log(`Ftasks ${filteredTasks[1].title})`)
     // Ensure the column titles are set outside of this function or correctly initialized before this function runs
   
@@ -114,7 +113,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const tasksContainer = document.createElement("div");
       column.appendChild(tasksContainer);
 
-    filteredTasks.filter(task => task.status = status).forEach(task => { 
+    filteredTasks.filter(task => task.status === status).forEach(task => { 
       const taskElement = document.createElement("div");
       taskElement.classList.add("task-div");
       taskElement.textContent = task.title;
