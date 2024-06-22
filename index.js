@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }else {
       console.log('Data already exists in localStorage');
     }
-    }
+    }//function not called
   
 
 
@@ -30,6 +30,11 @@ window.addEventListener('DOMContentLoaded', () => {
   'createNewTaskBtn' : document.getElementById('add-new-task-btn'),
   'editTaskModal' : document.querySelector('.edit-task-modal-window'),
   'sideBarDisplay' : document.getElementById('show-side-bar-btn')
+  }
+  const editBnt = {
+    "title" : document.getElementById('edit-task-title-input') ,
+    "desc" : document.getElementById('edit-task-desc-input'),
+    "status" : document.getElementById('edit-select-status')
   }
 
   console.log((elements.columnDivs))
@@ -281,11 +286,7 @@ function styleActiveBoard(boardName) {
 
   function openEditTaskModal(task) {
   // Set task details in modal inputs
-    const editBnt = {
-      "title" : document.getElementById('edit-task-title-input') ,
-      "desc" : document.getElementById('edit-task-desc-input'),
-      "status" : document.getElementById('edit-select-status')
-    }
+    
     console.log(editBnt.status)
     console.log(`task ${task.id}`)
     editBnt.title.value = task.title
@@ -307,7 +308,8 @@ function styleActiveBoard(boardName) {
     deleteBtn.addEventListener('click', ()=> {
       helperFunc.deleteTask(task.id)
       toggleModal(false, elements.editTaskModal)
-      //refresh page
+      refreshTasksUI()
+      
    })
   // Delete task using a helper function and close the task modal
 
@@ -317,13 +319,18 @@ function styleActiveBoard(boardName) {
 
   function saveTaskChanges(taskId) {
   // Get new user inputs
-
-
+    console.log(`taskssID : ${taskId}`)
+    
   // Create an object with the updated task details
+    const taskUpdate =  {
+      "title" : editBnt.title.value,
+      "description": editBnt.desc.value,
+      "status": editBnt.status.value 
+    }
 
 
   // Update task using a hlper functoin
-    helperFunc.patchTask(taskId)
+    helperFunc.patchTask(taskId, taskUpdate)
 
   // Close the modal and refresh the UI to reflect the changes
 
