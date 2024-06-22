@@ -25,11 +25,13 @@ window.addEventListener('DOMContentLoaded', () => {
   'headerBoardName' : document.getElementById('header-board-name'),
   'columnDivs' : document.querySelectorAll('.column-div'),
   'filterDiv' : document.getElementById('filterDiv'),
-  'themeSwitch' : document.getElementById('theme-switch'),
+  'themeSwitch' : document.getElementById('switch'),
   'modalWindow' : document.querySelector('.modal-window'),
   'createNewTaskBtn' : document.getElementById('add-new-task-btn'),
   'editTaskModal' : document.querySelector('.edit-task-modal-window'),
-  'sideBarDisplay' : document.getElementById('show-side-bar-btn')
+  'sideBarDisplay' : document.getElementById('side-bar-div'),
+  'sideBarBtn' : document.getElementById('show-side-bar-btn'),
+  'themeMode' : document.body
   }
   const editBnt = {
     "title" : document.getElementById('edit-task-title-input') ,
@@ -224,7 +226,7 @@ function styleActiveBoard(boardName) {
 
 
     // Theme switch event listener
-    //elements.themeSwitch.addEventListener('change', toggleTheme);
+    elements.themeSwitch.addEventListener('change', toggleTheme);
 
     // Show Add New Task Modal event listener
     elements.createNewTaskBtn.addEventListener('click', () => {
@@ -275,11 +277,18 @@ function styleActiveBoard(boardName) {
 
 
   function toggleSidebar(show) {
+    if (show){
+      elements.sideBarDisplay.style.display = "block"
+      elements.sideBarBtn.style.display =  "none"
+    } else{
+      elements.sideBarDisplay.style.display = "none"
+      elements.sideBarBtn.style.display = "block"
+    }
 
   }
 
   function toggleTheme() {
-
+    elements.themeMode.classList.toggle("light-theme")
   }
 
 
@@ -344,15 +353,17 @@ function styleActiveBoard(boardName) {
   });*/
   init()
   function init() {
+    initializeData()
     fetchAndDisplayBoardsAndTasks()
     setupEventListeners();
     const showSidebar = localStorage.getItem('showSideBar') === 'true';
     toggleSidebar(showSidebar);
-    const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
-    document.body.classList.toggle('light-theme', isLightTheme);
+    //const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
+    //document.body.classList.toggle('light-theme', isLightTheme);
     ; // Initial display of boards and tasks
   }
   
 
 })
+
 
