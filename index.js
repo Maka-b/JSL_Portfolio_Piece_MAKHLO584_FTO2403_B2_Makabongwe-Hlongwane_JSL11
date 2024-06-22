@@ -14,6 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('tasks', JSON.stringify(initialData)); 
       localStorage.setItem('showSideBar', 'true')
       localStorage.setItem('light-theme', 'false')
+      localStorage.setItem('isChecked', 'false')
     }else {
       console.log('Data already exists in localStorage');
     }
@@ -69,7 +70,7 @@ window.addEventListener('DOMContentLoaded', () => {
       styleActiveBoard(activeBoard)
       refreshTasksUI();
     }
-  }//fetchAndDisplayBoardsAndTasks()
+  }
 
 
   // Creates different boards in the DOM
@@ -292,6 +293,8 @@ function styleActiveBoard(boardName) {
     elements.themeMode.classList.toggle("light-theme")
     localStorage.getItem('light-theme')=== 'true' ? localStorage.setItem('light-theme', 'false') : localStorage.setItem('light-theme', true)
     console.log(localStorage.getItem('light-theme'))
+    if (document.getElementById('switch').checked){
+      alert("checked")}
   }
 
 
@@ -356,7 +359,7 @@ function styleActiveBoard(boardName) {
   });*/
   init()
   function init() {
-    //initializeData()
+    initializeData()
     fetchAndDisplayBoardsAndTasks()
     setupEventListeners();
     const showSidebar = localStorage.getItem('showSideBar') === 'true';
@@ -364,6 +367,9 @@ function styleActiveBoard(boardName) {
     //elements.themeMode.classList.add('light-theme')
     if (localStorage.getItem('light-theme')=== "true"){
       elements.themeMode.classList.add('light-theme')
+      document.getElementById("switch").checked = true
+    }else{
+      document.getElementById("switch").checked = false
     }
     
     console.log(`theme ${localStorage.getItem('light-theme')}`) ;
@@ -372,6 +378,8 @@ function styleActiveBoard(boardName) {
   }
   
 
+
 })
+
 
 
