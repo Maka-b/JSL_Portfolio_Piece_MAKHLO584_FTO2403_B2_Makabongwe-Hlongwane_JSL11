@@ -14,11 +14,11 @@ window.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('tasks', JSON.stringify(initialData)); 
       localStorage.setItem('showSideBar', 'true')
       localStorage.setItem('light-theme', 'false')
-      localStorage.setItem('isChecked', 'false')
+      
     }else {
       console.log('Data already exists in localStorage');
     }
-    }//function not called
+    }
   
 
 
