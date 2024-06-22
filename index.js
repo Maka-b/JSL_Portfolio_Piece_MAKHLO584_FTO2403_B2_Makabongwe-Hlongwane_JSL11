@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem('tasks')) {
       localStorage.setItem('tasks', JSON.stringify(initialData)); 
       localStorage.setItem('showSideBar', 'true')
+      localStorage.setItem('light-theme', 'false')
     }else {
       console.log('Data already exists in localStorage');
     }
@@ -289,6 +290,8 @@ function styleActiveBoard(boardName) {
 
   function toggleTheme() {
     elements.themeMode.classList.toggle("light-theme")
+    localStorage.getItem('light-theme')=== 'true' ? localStorage.setItem('light-theme', 'false') : localStorage.setItem('light-theme', true)
+    console.log(localStorage.getItem('light-theme'))
   }
 
 
@@ -353,12 +356,17 @@ function styleActiveBoard(boardName) {
   });*/
   init()
   function init() {
-    initializeData()
+    //initializeData()
     fetchAndDisplayBoardsAndTasks()
     setupEventListeners();
     const showSidebar = localStorage.getItem('showSideBar') === 'true';
     toggleSidebar(showSidebar);
-    //const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
+    //elements.themeMode.classList.add('light-theme')
+    if (localStorage.getItem('light-theme')=== "true"){
+      elements.themeMode.classList.add('light-theme')
+    }
+    
+    console.log(`theme ${localStorage.getItem('light-theme')}`) ;
     //document.body.classList.toggle('light-theme', isLightTheme);
     ; // Initial display of boards and tasks
   }
