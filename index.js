@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
       console.log('Data already exists in localStorage');
     }
     }
-  //initializeData()
+  
 
 
   // TASK: Get elements from the DOM
@@ -47,6 +47,7 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log(localStorage)
 
     const tasks = helperFunc.getTasks();
+    console.log(`tasksss ${Array.from(tasks)}`)
     const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
     console.log(`boards : ${boards}`)
     displayBoards(boards);
@@ -164,7 +165,7 @@ function styleActiveBoard(boardName) {
 
 
   function addTaskToUI(task) {
-  const column = document.querySelector('.column-div[data-status="${task.status}"]'); 
+  const column = document.querySelector(`.column-div[data-status="${task.status}"]`); 
   if (!column) {
     console.error(`Column not found for status: ${task.status}`);
   return;
@@ -183,7 +184,7 @@ function styleActiveBoard(boardName) {
   taskElement.textContent = task.title; // Modify as needed
   taskElement.setAttribute('data-task-id', task.id);
 
-  tasksContainer.appendChild(); 
+  tasksContainer.appendChild(taskElement); 
   }
 
 
@@ -191,7 +192,9 @@ function styleActiveBoard(boardName) {
   function setupEventListeners() {
   // Cancel editing task event listener
     const cancelEditBtn = document.getElementById('cancel-edit-btn');
-    cancelEditBtn.addEventListener('click', () => toggleModal(false, elements.editTaskModal));
+    cancelEditBtn.addEventListener('click', () => {
+      document.getElementById('edit-task-form').reset()
+      toggleModal(false, elements.editTaskModal)});
 
     // Cancel adding new task event listener
     const cancelAddTaskBtn = document.getElementById('cancel-add-task-btn');
@@ -278,14 +281,34 @@ function styleActiveBoard(boardName) {
 
   function openEditTaskModal(task) {
   // Set task details in modal inputs
+    const editBnt = {
+      "title" : document.getElementById('edit-task-title-input') ,
+      "desc" : document.getElementById('edit-task-desc-input'),
+      "status" : document.getElementById('edit-select-status')
+    }
+    console.log(editBnt.status)
+    console.log(`task ${task.id}`)
+    editBnt.title.value = task.title
+    editBnt.desc.value = task.description
+    editBnt.status.value = task.status
 
-
+    
   // Get button elements from the task modal
+    const saveBtn = document.getElementById('save-task-changes-btn')
+    saveBtn.addEventListener('click', ()=> {
+      saveTaskChanges(task.id)
+      toggleModal(false, elements.editTaskModal)
 
+    })
 
   // Call saveTaskChanges upon click of Save Changes button
 
-
+    const deleteBtn = document.getElementById('delete-task-btn')
+    deleteBtn.addEventListener('click', ()=> {
+      helperFunc.deleteTask(task.id)
+      toggleModal(false, elements.editTaskModal)
+      //refresh page
+   })
   // Delete task using a helper function and close the task modal
 
 
@@ -300,11 +323,11 @@ function styleActiveBoard(boardName) {
 
 
   // Update task using a hlper functoin
-
+    helperFunc.patchTask(taskId)
 
   // Close the modal and refresh the UI to reflect the changes
 
-  refreshTasksUI();
+    refreshTasksUI();
   }
 
   /*************************************************************************************************************************************************/
@@ -325,3 +348,4 @@ function styleActiveBoard(boardName) {
   
 
 })
+
