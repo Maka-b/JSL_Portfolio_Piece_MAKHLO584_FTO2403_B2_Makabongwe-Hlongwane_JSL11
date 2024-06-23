@@ -334,8 +334,8 @@ function openEditTaskModal(task) {
      let taskObj = tasks.find(obj => obj.title == editBnt.title.value)
      console.log(taskObj)
      const taskObjId = taskObj.id
-     console.log(taskObjId)
-    console.log(`taskObjId : ${taskObjId}`)
+     //console.log(taskObjId)
+    //console.log(`taskObjId : ${taskObjId}`)
     saveTaskChanges(taskObjId, task.board)
     //console.log(`taskObjId : ${taskObjId}`)
     toggleModal(false, elements.editTaskModal)
@@ -347,7 +347,11 @@ function openEditTaskModal(task) {
 
   const deleteBtn = document.getElementById('delete-task-btn')
   deleteBtn.addEventListener('click', ()=> {
-    helperFunc.deleteTask(task.id)
+    const tasks = JSON.parse(localStorage.getItem('tasks'))
+    let taskObj = tasks.find(obj => obj.title == editBnt.title.value)
+    //console.log(taskObj)
+    const taskObjId = taskObj.id
+    helperFunc.deleteTask(taskObjId)
     toggleModal(false, elements.editTaskModal)
     refreshTasksUI()
     
